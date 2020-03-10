@@ -38,7 +38,36 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    // write your solution here
+    let ten = expr.match(/.{1,10}/g),
+        arr = [],
+        result = [],
+        answer = [];
+
+    for (let i = 0; i < ten.length; i++) {
+        if (ten[i] !== '**********') {
+            arr.push(parseInt(ten[i], 10));
+        } else {
+            arr.push(' ');
+        }
+    }
+
+    arr = arr
+        .join(',')
+        .replace(/10/gi, '.')
+        .replace(/11/gi, '-')
+        .split(',');
+
+    for (let i = 0; i <= arr.length; i++) {
+        if (arr[i] !== ' ') {
+            result = MORSE_TABLE[arr[i]];
+        } else {
+            result = ' ';
+        }
+
+        answer.push(result);
+    }
+
+    return answer.join('');
 }
 
 module.exports = {
